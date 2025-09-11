@@ -27,7 +27,7 @@ ${files.slice(0, 5).map(f => `File: ${f.name}\n${f.content.slice(0, 1000)}`).joi
 
   try {
     // Use Gemini Pro model
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
     const result = await model.generateContent(prompt);
     const response = await result.response;

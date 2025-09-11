@@ -36,3 +36,6 @@ export const downloadFile = (req, res) => {
   const file = path.join(__dirname, '..', 'exports', req.params.filename);
   res.download(file);
 };
+
+// Example function to call Perplexity API
+
