@@ -31,7 +31,7 @@ export const generateDocumentation = async (req, res) => {
   //   res.status(500).json({ error: 'Failed to generate documentation' });
   // }
   } catch (error) {
-  console.error("❌ Full error during documentation generation:");
+  console.error("Full error during documentation generation:");
   console.error(error);                // original object
   console.error(error.message);        // error message
   console.error(error.stack);          // stack trace
@@ -45,5 +45,5 @@ export const downloadFile = (req, res) => {
   res.download(file);
 };
 
-// Example function to call Perplexity API
+
 
