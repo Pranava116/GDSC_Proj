@@ -26,10 +26,18 @@ export const generateDocumentation = async (req, res) => {
     cleanUp(localPath);
 
     res.json({ downloadUrl: `/api/docify/download/${path.basename(filePath)}` });
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).json({ error: 'Failed to generate documentation' });
+  // }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to generate documentation' });
-  }
+  console.error("❌ Full error during documentation generation:");
+  console.error(error);                // original object
+  console.error(error.message);        // error message
+  console.error(error.stack);          // stack trace
+  res.status(500).json({ error: error.message || 'Failed to generate documentation' });
+}
+
 };
 
 export const downloadFile = (req, res) => {

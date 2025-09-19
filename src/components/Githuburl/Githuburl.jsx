@@ -1,11 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Github, Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './Githuburl.css'; 
 
 const GITHUB_RE = /^https:\/\/github\.com\/[\w-]+\/[\w.-]+\/?$/i;
 
-export default function Githuburl({ onSubmit }) {
+export default function Githuburl() {
   const {
     register,
     handleSubmit,
@@ -13,18 +14,20 @@ export default function Githuburl({ onSubmit }) {
     reset,
   } = useForm();
 
+  const navigate = useNavigate();
+
   const submit = async (data) => {
     if (!GITHUB_RE.test(data.repo)) {
       toast.error('Enter a valid GitHub URL');
       return;
     }
-    await onSubmit?.(data.repo);
+    // ✅ Instead of calling onSubmit, go to /choose-format
+    navigate('/choose-format', { state: { repoUrl: data.repo } });
     reset();
   };
 
   return (
     <div className="githuburl-container">
-
       <div className="githuburl-header">
         <Github size={20} className="githuburl-icon" />
         <div>
@@ -35,7 +38,6 @@ export default function Githuburl({ onSubmit }) {
         </div>
       </div>
 
-      
       <form onSubmit={handleSubmit(submit)} className="githuburl-form">
         <div className="githuburl-input-wrapper">
           <Search size={18} className="githuburl-search-icon" />
@@ -55,7 +57,7 @@ export default function Githuburl({ onSubmit }) {
           disabled={isSubmitting}
           className="githuburl-button"
         >
-          {isSubmitting ? 'Generating…' : 'Generate Documentation'}
+          {isSubmitting ? 'Loading…' : 'Next'}
         </button>
       </form>
     </div>

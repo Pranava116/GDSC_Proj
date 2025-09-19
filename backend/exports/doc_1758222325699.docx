@@ -1,0 +1,111 @@
+# Docify: Automated Documentation Generator
+
+## Project Overview
+
+Docify is a backend application that automatically generates documentation for GitHub repositories.  It leverages a large language model (LLM) to process repository information (README, code samples) and produce structured documentation. The generated documentation includes sections for Project Overview, Installation/Setup, Tech Stack, Feature List, Code Architecture, Usage Examples, and APIs or Functions Explained.  The application provides a RESTful API for submitting repository URLs and downloading the generated documentation in various formats.
+
+## Installation/Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository_url>
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ``` or
+   ```bash
+   yarn install
+   ```
+
+3. **Set environment variables:**  Create a `.env` file in the root directory and add your Gemini API key:
+   ```
+   GEMINI_API_KEY=<your_gemini_api_key>
+   ```
+
+4. **Run the application:**
+   ```bash
+   npm start
+   ``` or
+   ```bash
+   yarn start
+   ```
+
+This will start the server on port 5000 (or the port specified in the environment variables).
+
+## Tech Stack
+
+* **Backend:** Node.js, Express.js
+* **Database:**  None (data is processed in memory)
+* **API:** RESTful API
+* **LLM:** Google Gemini (Gemini-1.5-pro model)
+* **Git Integration:** Uses Node.js packages to interact with Git repositories.
+* **Parsing:** Custom parsing logic to extract relevant information from repositories.
+* **Export Formats:** Currently supports Markdown (`.md`).
+
+
+## Feature List
+
+* **Automatic Documentation Generation:** Processes GitHub repositories and generates structured documentation.
+* **GitHub Repository Integration:** Accepts GitHub repository URLs as input.
+* **LLM-Powered Content Generation:** Uses Google Gemini to generate human-readable documentation.
+* **Multiple Export Formats:** (Currently Markdown, more formats can be added)
+* **Error Handling:** Provides informative error messages for invalid inputs.
+* **RESTful API:**  Easy integration with other applications.
+
+
+## Code Architecture
+
+The application follows a modular design:
+
+* **`app.js`:** The main application file, setting up Express.js middleware and routing.
+* **`routes/docifyRoutes.js`:** Defines the API routes (`/generate` and `/download`).
+* **`controllers/docifyController.js`:** Contains the core logic for handling API requests, including repository cloning, parsing, LLM interaction, and documentation export.
+* **`utils/`:** Contains helper functions:
+    * **`gitUtils.js`:** Functions for cloning, cleaning up Git repositories.
+    * **`parseUtils.js`:** Functions for parsing README and code files.
+    * **`aiUtils.js`:**  Functions for interacting with the Gemini API.
+    * **`exportUtils.js`:** Functions for exporting the documentation in various formats.
+
+## Usage Examples
+
+**1. Generate Documentation:**
+
+Send a POST request to `/api/docify/generate` with the repository URL and desired export format in the request body:
+
+```json
+{
+  "repoUrl": "https://github.com/vitejs/vite",
+  "exportFormat": "md"
+}
+```
+
+The response will contain a JSON object with a success message and the download URL.
+
+
+**2. Download Documentation:**
+
+Once the documentation is generated, you can download it using the URL provided in the response of the `/api/docify/generate` endpoint.  Alternatively,  you can access the generated file directly using the `/api/docify/download` endpoint:
+
+
+## APIs or Functions Explained
+
+**`/api/docify/generate` (POST):**
+
+* **Request Body:**
+    * `repoUrl` (string, required): The URL of the GitHub repository.  Must start with "https://github.com/".
+    * `exportFormat` (string, optional): The desired export format (currently only "md" is supported).
+* **Response:**
+    * On success: A JSON object with a `downloadUrl` property containing the URL to download the generated documentation.
+    * On error: A JSON object with an `error` property containing an error message (e.g., invalid GitHub URL).
+
+**`/api/docify/download/:filename` (GET):**
+
+This endpoint serves the generated documentation file.  The `filename` parameter is extracted from the response of the `/api/docify/generate` endpoint.
+
+**`generateAIContent(repoData)` (aiUtils.js):**
+
+This function takes a `repoData` object (containing the README and code samples) as input and uses the Google Gemini API to generate documentation.  It constructs a prompt that includes the README and code samples and sends it to the Gemini API. The response from the API is then returned as a string.
+
+**Other functions (`gitUtils.js`, `parseUtils.js`, `exportUtils.js`)** are helper functions that perform their specific tasks (cloning repos, parsing data, exporting files), providing modularity and reusability to the core logic.

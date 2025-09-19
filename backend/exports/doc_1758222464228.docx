@@ -1,0 +1,87 @@
+# Docify Backend Documentation
+
+## Project Overview
+
+Docify is a backend service that automatically generates documentation for GitHub repositories.  It leverages a large language model (LLM) to analyze the repository's code, README, and other files to create a comprehensive documentation set. The generated documentation includes sections on project overview, installation, tech stack, features, architecture, usage examples, and API/function explanations.  The documentation can be exported in various formats (currently supporting at least Markdown).
+
+## Installation/Setup
+
+1. **Clone the repository:** `git clone <repository_url>`
+2. **Install dependencies:** `npm install` or `yarn install`
+3. **Set up environment variables:** Create a `.env` file in the project root and add your Gemini API key:
+   ```
+   GEMINI_API_KEY=<your_gemini_api_key>
+   ```
+4. **Start the server:** `npm start` or `yarn start`
+
+This will start the server on port 5000 (or the port specified by the `PORT` environment variable).  Ensure you have Node.js and npm (or yarn) installed.
+
+
+## Tech Stack
+
+* **Backend:** Node.js, Express.js
+* **Database:**  None (data is processed in memory)
+* **LLM:** Google Gemini (via the `@google/generative-ai` library)
+* **Other Libraries:** `cors`, `path`, `url`, `dotenv`
+
+## Feature List
+
+* **GitHub Repository Parsing:** Clones a GitHub repository to locally access its contents.
+* **Code Analysis:**  Analyzes the repository's codebase and README file.
+* **AI-Powered Documentation Generation:** Uses Google Gemini to generate documentation based on the analyzed data.
+* **Multiple Export Formats:** Supports exporting the documentation (at least Markdown is implied).
+* **Error Handling:** Includes error handling for invalid GitHub URLs and API requests.
+
+
+## Code Architecture
+
+The application follows a layered architecture:
+
+1. **Routes (`docifyRoutes.js`):** Defines API endpoints for documentation generation and file downloads.  Uses Express.js routers.
+2. **Controllers (`docifyController.js`):** Handles requests, orchestrates the documentation generation process, and sends responses.
+3. **Utils:** Contains helper functions for:
+    * **`gitUtils.js`:** Cloning and cleaning up Git repositories.
+    * **`parseUtils.js`:** Parsing repository data (README and files).
+    * **`aiUtils.js`:** Interacting with the Google Gemini API.
+    * **`exportUtils.js`:** Exporting the generated documentation to the chosen format.
+4. **Server (`server.js`):** Starts the Express.js server and listens for incoming requests.
+
+
+## Usage Examples
+
+**Generating Documentation:**
+
+Send a POST request to `/api/docify/generate` with a JSON payload containing the GitHub repository URL and desired export format:
+
+```json
+{
+  "repoUrl": "https://github.com/<username>/<repository>",
+  "exportFormat": "md" // or other supported formats
+}
+```
+
+**Downloading Documentation:**
+
+Once the documentation is generated, a download link will be provided in the response. The generated file can then be downloaded directly.
+
+## APIs or Functions Explained
+
+**`generateDocumentation` (in `docifyController.js`):**
+
+This asynchronous function is the core of the application. It takes a repository URL and export format as input. It performs the following steps:
+
+1. Validates the GitHub URL.
+2. Clones the repository using `cloneRepo`.
+3. Parses the repository data using `parseRepo`.
+4. Generates documentation using the Gemini API via `generateAIContent`.
+5. Exports the documentation using `exportDocs`.
+6. Cleans up the cloned repository using `cleanUp`.
+7. Sends the download URL in the response.
+
+**`generateAIContent` (in `aiUtils.js`):**
+
+This function interacts with the Google Gemini API. It takes parsed repository data as input, constructs a prompt containing the README and code snippets, and sends it to the Gemini API to generate the documentation.  It utilizes the Gemini Pro model.
+
+**Other functions:**  The other functions are helper functions providing modularity and reusability.  `cloneRepo`, `cleanUp`, `parseRepo`, and `exportDocs` handle lower-level tasks like Git operations, data parsing, and file export.  The specific implementation details are not provided in the given code snippets, but their purpose is clearly described by their names.  `downloadFile` is likely used to handle the download functionality for the generated files.
+
+The provided code snippets show a basic structure.  Error handling and more robust features (like input validation and rate limiting) would be necessary for a production-ready application.

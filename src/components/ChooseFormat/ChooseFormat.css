@@ -1,0 +1,104 @@
+/* ==========================
+   Container
+========================== */
+.text-center.mt-16 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 2rem;
+  text-align: center;
+  background: none !important;
+  color: #fff !important;
+  font-family: 'Inter', sans-serif;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* ==========================
+   Heading
+========================== */
+.text-2xl.text-white.mb-6 {
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 2rem !important;
+  color: #e5e7eb !important; /* Neutral white-gray */
+  letter-spacing: 0.5px;
+  text-transform: none; /* Keep natural case */
+  animation: slideDown 0.6s ease;
+}
+
+/* ==========================
+   Buttons Wrapper
+========================== */
+.flex.justify-center.gap-4 {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem !important;
+  flex-wrap: wrap;
+}
+
+/* ==========================
+   Buttons (Classic style)
+========================== */
+.px-6.py-3.rounded.bg-blue-600.text-white.hover\:bg-blue-700 {
+  padding: 0.9rem 2rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  cursor: pointer;
+  color: #ffffff !important;
+  background-color: #2563eb !important; /* Solid blue */
+  border: 1px solid #1d4ed8;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.px-6.py-3.rounded.bg-blue-600.text-white.hover\:bg-blue-700:hover {
+  background-color: #1d4ed8 !important; /* Darker blue */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Disabled */
+.px-6.py-3.rounded.bg-blue-600.text-white.hover\:bg-blue-700:disabled {
+  background-color: #9ca3af !important; /* Neutral gray */
+  border-color: #6b7280;
+  color: #f3f4f6 !important;
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ==========================
+   Responsive
+========================== */
+@media (max-width: 640px) {
+  .flex.justify-center.gap-4 {
+    flex-direction: column;
+    gap: 1rem !important;
+  }
+
+  .px-6.py-3.rounded.bg-blue-600.text-white.hover\:bg-blue-700 {
+    width: 100% !important;
+  }
+
+  .text-2xl.text-white.mb-6 {
+    font-size: 1.8rem !important;
+  }
+}
+
+/* ==========================
+   Animations
+========================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

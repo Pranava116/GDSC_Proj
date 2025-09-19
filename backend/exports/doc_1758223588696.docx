@@ -1,0 +1,94 @@
+# Karthik's Gemini-powered Application Documentation
+
+## Project Overview
+
+This project is a simple Flask application that leverages the Google Gemini API (gemini-2.0-flash) to generate text based on user-provided prompts.  The application handles API calls, including retry logic for robustness, and returns the generated text.  The API key is securely managed using environment variables.  This is a basic example and could be expanded to include more sophisticated features and error handling.
+
+
+## Installation/Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository_url>
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt 
+   ```
+   (Assuming a `requirements.txt` file exists with `Flask`, `flask-cors`, `requests`, and `python-dotenv`.)
+
+3. **Create a `.env` file:**  Create a file named `.env` in the project's root directory.  Add your Gemini API key:
+   ```
+   GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+   ```
+   Replace `YOUR_GEMINI_API_KEY` with your actual Gemini API key obtained from the Google Cloud console.
+
+
+4. **Run the application:**
+   ```bash
+   python app.py
+   ```
+   The application will run on a default port (usually 5000).
+
+
+## Tech Stack
+
+* **Python:** The primary programming language.
+* **Flask:** A lightweight web framework for building the API.
+* **Flask-CORS:**  Enables Cross-Origin Resource Sharing (CORS) to allow requests from different origins.
+* **Requests:**  A library for making HTTP requests to the Gemini API.
+* **python-dotenv:**  Loads environment variables from a `.env` file.
+* **Google Gemini API (gemini-2.0-flash):** The language model used for text generation.
+
+
+## Feature List
+
+* **Text Generation:**  Accepts user prompts and generates text using the Gemini API.
+* **Retry Mechanism:**  Includes retry logic to handle transient errors during API calls.  Attempts up to 5 times with exponential backoff.
+* **Error Handling (Basic):**  The code checks for HTTP response status codes. More robust error handling could be added.
+* **Environment Variable Management:** Uses a `.env` file to securely store the API key.
+
+
+## Code Architecture
+
+The application is a single Python file (`app.py`) using the Flask framework.
+
+* **`app.py`:** Contains the main application logic, including:
+    * Flask app initialization.
+    * CORS configuration.
+    * Loading environment variables.
+    * `call_gemini()` function: This function makes the request to the Gemini API, handles retries, and parses the response.
+
+The architecture is simple and suitable for a small-scale application.  For larger projects, a more structured approach (e.g., using separate modules for API interaction, data processing, etc.) would be recommended.
+
+
+## Usage Examples
+
+You can send a POST request to the Flask application endpoint with a JSON payload containing the prompt.  Example using `curl`:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"prompt": "Write a short story about a robot learning to love."}' http://localhost:5000/
+```
+
+(Note:  Replace `http://localhost:5000/` with the actual URL of your running application.)  The response will contain the generated text.
+
+
+## APIs or Functions Explained
+
+The core functionality lies within the `call_gemini()` function:
+
+```python
+def call_gemini(prompt, max_retries=5):
+    # ... (code as shown in the provided `app.py` file)
+```
+
+This function:
+
+1. **Constructs the API request:** Creates a JSON payload containing the user's prompt.
+2. **Makes the API call:** Uses `requests.post()` to send a POST request to the Gemini API URL.
+3. **Handles retries:** Uses a loop to retry the request up to `max_retries` times if the initial request fails. It includes an exponential backoff strategy (increasing delay between retries).
+4. **Parses the response:**  Extracts the generated text from the JSON response.
+5. **Returns the generated text:** Returns the generated text string.
+
+The function incorporates basic error handling (checking `response.ok`) but could be improved with more specific error handling and logging.  Adding exception handling (e.g., `try...except` blocks) for potential issues like network problems or API errors would enhance robustness.
