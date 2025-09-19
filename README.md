@@ -17,23 +17,31 @@ Intuitive interface for generating and downloading documentation.
 
 💻 Tech Stack
 Frontend: React.js, Tailwind CSS
+
 Backend: Node.js, Express.js
-Database: MongoDB (optional for storage/history)
+
 AI Integration: Summarization engine for code and README content
+
 Document Conversion: pdfkit / html-pdf / docx libraries
 
 📦 Usage
 
 Open the Docify web app.
+
 Enter a GitHub repository link.
+
 Click Generate Documentation.
+
 Download the documentation in PDF, Markdown, or Word.
 
 🌟 Future Enhancements
 
 AI-based summarization for comments and code explanations.
+
 Multi-language repository support.
+
 Auto-detect missing documentation and generate templates.
+
 Integration with GitHub Actions for automated doc updates.
 
 📝 License
