@@ -1,12 +1,57 @@
-# React + Vite
+Docify 📝
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Automatically generate documentation for any GitHub repository – supporting PDF, Markdown, and Word formats. Built with the MERN stack.
 
-Currently, two official plugins are available:
+🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Generate documentation from any GitHub repository URL.
 
-## Expanding the ESLint configuration
+Supports multiple formats:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+PDF
+
+Markdown (MD)
+
+Word (DOCX)
+
+AI-powered summarization for clean, professional documentation.
+
+Intuitive interface for generating and downloading documentation.
+
+💻 Tech Stack
+
+Frontend: React.js, Tailwind CSS
+
+Backend: Node.js, Express.js
+
+Database: MongoDB (optional for storage/history)
+
+AI Integration: Summarization engine for code and README content
+
+Document Conversion: pdfkit / html-pdf / docx libraries
+
+📦 Usage
+
+Open the Docify web app.
+
+Enter a GitHub repository link.
+
+Click Generate Documentation.
+
+Download the documentation in PDF, Markdown, or Word.
+
+🌟 Future Enhancements
+
+AI-based summarization for comments and code explanations.
+
+Multi-language repository support.
+
+Auto-detect missing documentation and generate templates.
+
+Integration with GitHub Actions for automated doc updates.
+
+📝 License
+
+MIT License.
+
+Do you want me to do that?
