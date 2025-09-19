@@ -1,14 +1,19 @@
 Docify 📝
+
 Automatically generate documentation for any GitHub repository – supporting PDF, Markdown, and Word formats. Built with the MERN stack.
 
 🚀 Features
 Generate documentation from any GitHub repository URL.
+
 Supports multiple formats:
+
 PDF
 Markdown (MD)
 Word (DOCX)
 AI-powered summarization for clean, professional documentation.
+
 Intuitive interface for generating and downloading documentation.
+
 
 💻 Tech Stack
 Frontend: React.js, Tailwind CSS
