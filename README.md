@@ -10,12 +10,14 @@ Supports multiple formats:
 PDF
 Markdown (MD)
 Word (DOCX)
+
 AI-powered summarization for clean, professional documentation.
 
 Intuitive interface for generating and downloading documentation.
 
 
 💻 Tech Stack
+
 Frontend: React.js, Tailwind CSS
 
 Backend: Node.js, Express.js
@@ -48,4 +50,4 @@ Integration with GitHub Actions for automated doc updates.
 
 MIT License.
 
-Do you want me to do that?
+
